@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suggestness Farmacia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./src/styles.css" />
+</head>
+<body>
+  <section id="loginScreen" class="screen login-page">
+    <div class="brand-panel">
+      <span class="brand-chip">Inventario y compras para farmacias</span>
+      <h1 class="brand-title">Suggestness</h1>
+      <p class="brand-description">
+        Inicia sesión para administrar tu inventario de medicamentos, registrar compras, controlar stock bajo y mantener organizada la operación de tu farmacia desde una sola plataforma.
+      </p>
+    </div>
+
+    <div class="login-card">
+      <div class="logo-box">
+        <svg class="logo-mark" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Logo Suggestness">
+          <path d="M60 11L93 30.5V43H82V37L60 24L38 37V61L74 82V96L60 109L27 89.5V76H38V83L60 96L82 83V59L46 38V24L60 11Z" fill="#1F6F9C"/>
+          <path d="M55 24L68 31V38L81 45V58L67 50V43L55 36V24Z" fill="#1F6F9C"/>
+          <path d="M32 56H20V44H32V32H44V44H56V56H44V68H32V56Z" fill="#1F6F9C"/>
+          <path d="M88 35H98V45H108V55H98V65H88V55H78V45H88V35Z" fill="#1F6F9C"/>
+        </svg>
+        <div>
+          <h2 class="logo-name">SUGGESSNESS</h2>
+          <p class="logo-sub">Inteligencia de negocios para farmacias</p>
+        </div>
+      </div>
+
+      <h2 class="section-title">Iniciar sesión</h2>
+      <p class="section-copy">Usa tus credenciales para entrar al módulo de inventario.</p>
+
+      <form id="loginForm">
+        <div class="field">
+          <label for="email">Correo electrónico</label>
+          <input id="email" type="email" placeholder="admin@farmacia.com" required>
+        </div>
+        <div class="field">
+          <label for="password">Contraseña</label>
+          <input id="password" type="password" placeholder="Ingresa tu contraseña" required>
+        </div>
+        <div class="form-row">
+          <label class="remember"><input type="checkbox"> Recordarme</label>
+          <a href="#">¿Olvidaste tu contraseña?</a>
+        </div>
+        <button class="btn-primary" type="submit">Entrar al sistema</button>
+      </form>
+
+      <div class="support-box">
+        <div>¿No puedes ingresar? <strong>Contacta al soporte técnico</strong></div>
+        <div class="support-links">
+          <a href="mailto:soporte@suggestness.com">soporte@suggestness.com</a>
+          <a href="tel:+573001234567">+57 300 123 4567</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="appScreen" class="screen app-shell hidden">
+    <header class="app-header">
+      <div class="brand-inline">
+        <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M60 11L93 30.5V43H82V37L60 24L38 37V61L74 82V96L60 109L27 89.5V76H38V83L60 96L82 83V59L46 38V24L60 11Z" fill="#1F6F9C"/>
+          <path d="M55 24L68 31V38L81 45V58L67 50V43L55 36V24Z" fill="#1F6F9C"/>
+          <path d="M32 56H20V44H32V32H44V44H56V56H44V68H32V56Z" fill="#1F6F9C"/>
+          <path d="M88 35H98V45H108V55H98V65H88V55H78V45H88V35Z" fill="#1F6F9C"/>
+        </svg>
+        <div>
+          <h1>Suggestness Inventario</h1>
+          <p>Gestión de medicamentos, compras y stock</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn-soft" id="openFormBtn" type="button">Agregar medicamento</button>
+        <button class="btn-soft" id="logoutBtn" type="button">Cerrar sesión</button>
+      </div>
+    </header>
+
+    <section class="stats-grid" aria-label="Resumen del inventario">
+      <article class="stat-card">
+        <div class="stat-head"><span>Total Medicamentos</span><span>📦</span></div>
+        <div id="totalMeds" class="stat-value">0</div>
+      </article>
+      <article class="stat-card">
+        <div class="stat-head"><span>Stock Bajo</span><span>⚠️</span></div>
+        <div id="lowStock" class="stat-value warning">0</div>
+      </article>
+      <article class="stat-card">
+        <div class="stat-head"><span>Valor Total Inventario</span><span>📈</span></div>
+        <div id="inventoryValue" class="stat-value success">$0</div>
+      </article>
+    </section>
+
+    <section class="toolbar">
+      <div class="search-box">
+        <span>🔎</span>
+        <input id="searchInput" type="text" placeholder="Buscar por nombre o número de serie...">
+      </div>
+
+      <div class="panel-card">
+        <h2>Registrar o editar medicamento</h2>
+        <form id="medicineForm" class="grid-2">
+          <div class="field full">
+            <label for="medicineName">Medicamento</label>
+            <input id="medicineName" type="text" placeholder="Ej. Paracetamol 500mg" required>
+          </div>
+          <div class="field">
+            <label for="laboratory">Laboratorio</label>
+            <input id="laboratory" type="text" placeholder="Ej. Laboratorios Beta" required>
+          </div>
+          <div class="field">
+            <label for="serial">Número de serie</label>
+            <input id="serial" type="text" placeholder="MED-2026-001-4782" required>
+          </div>
+          <div class="field">
+            <label for="category">Categoría</label>
+            <select id="category" required>
+              <option value="">Selecciona una categoría</option>
+              <option>Analgésicos</option>
+              <option>Antibióticos</option>
+              <option>Antiinflamatorios</option>
+              <option>Antiácidos</option>
+              <option>Antihistamínicos</option>
+              <option>Antidiabéticos</option>
+              <option>Antihipertensivos</option>
+              <option>Broncodilatadores</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="quantity">Cantidad</label>
+            <input id="quantity" type="number" min="0" placeholder="0" required>
+          </div>
+          <div class="field">
+            <label for="minStock">Stock mínimo</label>
+            <input id="minStock" type="number" min="0" placeholder="100" required>
+          </div>
+          <div class="field">
+            <label for="price">Precio unitario</label>
+            <input id="price" type="number" min="0" step="0.01" placeholder="0.00" required>
+          </div>
+          <div class="field">
+            <label for="expiry">Vencimiento</label>
+            <input id="expiry" type="date" required>
+          </div>
+          <div class="field full">
+            <label for="location">Ubicación</label>
+            <input id="location" type="text" placeholder="Ej. Estante B-05" required>
+          </div>
+          <div class="full actions-form">
+            <button class="btn-secondary" type="submit">Guardar medicamento</button>
+            <button class="btn-soft" type="button" id="clearFormBtn">Limpiar</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="inventory-card">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Medicamento</th>
+              <th>Número de Serie</th>
+              <th>Categoría</th>
+              <th>Cantidad</th>
+              <th>Estado</th>
+              <th>Precio Unit.</th>
+              <th>Vencimiento</th>
+              <th>Ubicación</th>
+              <th>Opciones</th>
+            </tr>
+          </thead>
+          <tbody id="inventoryBody"></tbody>
+        </table>
+      </div>
+      <div id="emptyState" class="empty-state hidden">No hay medicamentos para mostrar con ese filtro.</div>
+    </section>
+  </section>
+
+  <script src="./src/app.js"></script>
+</body>
+</html>
