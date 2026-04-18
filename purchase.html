@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suggestness | Compra</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./src/styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="app-header">
+      <div>
+        <h1>Emitir compra</h1>
+        <p class="muted">Registra una venta simple y envía factura al correo del cliente</p>
+      </div>
+      <div class="header-actions">
+        <a href="./dashboard.html" class="btn-soft btn-link">Volver al dashboard</a>
+      </div>
+    </header>
+
+    <section class="panel-card">
+      <h2>Datos de la compra</h2>
+
+      <form id="purchaseForm" class="grid-2" novalidate>
+        <div class="field full">
+          <label for="customerEmail">Correo del cliente</label>
+          <input id="customerEmail" type="email" placeholder="cliente@correo.com" required>
+        </div>
+
+        <div class="field">
+          <label for="purchaseMedicine">Medicamento</label>
+          <select id="purchaseMedicine" required></select>
+        </div>
+
+        <div class="field">
+          <label for="purchaseQuantity">Cantidad a comprar</label>
+          <input id="purchaseQuantity" type="number" min="1" placeholder="1" required>
+        </div>
+
+        <div class="field">
+          <label for="invoiceName">Nombre cliente</label>
+          <input id="invoiceName" type="text" placeholder="Nombre del cliente" required>
+        </div>
+
+        <div class="field">
+          <label for="invoiceDocument">Documento</label>
+          <input id="invoiceDocument" type="text" placeholder="Cédula o NIT" required>
+        </div>
+
+        <div class="field full">
+          <label class="checkbox-row" for="requiresPrescription">
+            <input id="requiresPrescription" type="checkbox">
+            <span>¿La compra requiere fórmula médica?</span>
+          </label>
+        </div>
+
+        <div id="prescriptionWrapper" class="field full hidden">
+          <label for="prescriptionFile">Adjuntar fórmula médica</label>
+          <input
+            id="prescriptionFile"
+            type="file"
+            accept=".pdf,.jpg,.jpeg,.png"
+          >
+          <small class="muted">Formatos permitidos: PDF, JPG, JPEG, PNG.</small>
+        </div>
+
+        <div class="field full">
+          <label for="invoiceNotes">Observaciones</label>
+          <input id="invoiceNotes" type="text" placeholder="Ej. Compra mostrador">
+        </div>
+
+        <div class="full purchase-summary" id="purchaseSummary">
+          Selecciona un medicamento y una cantidad para ver el resumen.
+        </div>
+
+        <div class="full total-box">
+          <span>Total final</span>
+          <strong id="finalPurchaseTotal">$0</strong>
+        </div>
+
+        <div class="full actions-form">
+          <button type="submit" class="btn-primary btn-inline">Emitir compra</button>
+          <button type="button" class="btn-soft" id="clearPurchaseBtn">Limpiar</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <div id="invoiceModal" class="modal hidden">
+    <div class="modal-box">
+      <h3>Factura emitida correctamente</h3>
+      <p id="invoiceMessage" class="muted"></p>
+      <button id="closeModalBtn" class="btn-soft">Cerrar</button>
+    </div>
+  </div>
+
+  <script src="./src/app.js" defer></script>
+</body>
+</html>

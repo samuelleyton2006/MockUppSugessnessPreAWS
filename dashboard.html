@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suggestness | Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./src/styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="app-header">
+      <div>
+      <h1>Suggestness Inventario</h1>
+        <p class="muted">Gestión de medicamentos, cantidades y compras</p>
+      </div>
+      <div class="header-actions">
+        <a href="./purchase.html" class="btn-soft btn-link">Compra</a>
+        <a href="./index.html" class="btn-soft btn-link">Cerrar sesión</a>
+      </div>
+    </header>
+    
+    <section class="stats-grid">
+      <article class="stat-card">
+        <span class="muted">Total medicamentos</span>
+        <strong id="totalMeds">0</strong>
+      </article>
+
+      <article class="stat-card">
+        <span class="muted">Stock bajo</span>
+        <strong id="lowStock">0</strong>
+      </article>
+
+      <article class="stat-card">
+        <span class="muted">Valor inventario</span>
+        <strong id="inventoryValue">$0</strong>
+      </article>
+    </section>
+
+    <section class="panel-card">
+      <h2>Registrar medicamento</h2>
+
+      <form id="medicineForm" class="grid-2" novalidate>
+        <div class="field full">
+          <label for="medicineName">Medicamento</label>
+          <input id="medicineName" type="text" required>
+        </div>
+
+        <div class="field">
+          <label for="laboratory">Laboratorio</label>
+          <input id="laboratory" type="text" required>
+        </div>
+
+        <div class="field">
+          <label for="serial">Número de serie</label>
+          <input id="serial" type="text" required>
+        </div>
+
+        <div class="field">
+          <label for="category">Categoría</label>
+          <select id="category" required>
+            <option value="">Selecciona</option>
+            <option>Analgésicos</option>
+            <option>Antibióticos</option>
+            <option>Antiinflamatorios</option>
+            <option>Antiácidos</option>
+            <option>Antihistamínicos</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="quantity">Cantidad</label>
+          <input id="quantity" type="number" min="0" required>
+        </div>
+
+        <div class="field">
+          <label for="minStock">Stock mínimo</label>
+          <input id="minStock" type="number" min="0" required>
+        </div>
+
+        <div class="field">
+          <label for="price">Precio unitario</label>
+          <input id="price" type="number" min="0" step="1" required>
+        </div>
+
+        <div class="field">
+          <label for="expiry">Vencimiento</label>
+          <input id="expiry" type="date" required>
+        </div>
+
+        <div class="field full">
+          <label for="location">Ubicación</label>
+          <input id="location" type="text" required>
+        </div>
+
+        <div class="full actions-form">
+          <button type="submit" class="btn-primary btn-inline">Guardar medicamento</button>
+          <button type="button" class="btn-soft" id="clearFormBtn">Limpiar</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel-card">
+      <div class="search-box">
+        <input id="searchInput" type="text" placeholder="Buscar por nombre o serie...">
+      </div>
+    </section>
+
+    <section class="inventory-card">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Medicamento</th>
+              <th>Serie</th>
+              <th>Categoría</th>
+              <th>Cantidad</th>
+              <th>Estado</th>
+              <th>Precio</th>
+              <th>Vencimiento</th>
+              <th>Ubicación</th>
+              <th>Opciones</th>
+            </tr>
+          </thead>
+          <tbody id="inventoryBody"></tbody>
+        </table>
+      </div>
+      <div id="emptyState" class="empty-state hidden">No hay medicamentos para mostrar.</div>
+    </section>
+  </main>
+
+  <script src="./src/app.js" defer></script>
+</body>
+</html>
