@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suggestness | Histórico</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./src/styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="app-header">
+      <div>
+        <h1>Histórico de compras</h1>
+        <p class="muted">Consulta todas las ventas registradas en el sistema</p>
+      </div>
+      <div class="header-actions">
+        <a href="./dashboard.html" class="btn-soft btn-link">Dashboard</a>
+        <a href="./purchase.html" class="btn-soft btn-link">Compra</a>
+        <a href="./data.html" class="btn-soft btn-link">Datos</a>
+        <a href="./index.html" class="btn-soft btn-link">Cerrar sesión</a>
+      </div>
+    </header>
+
+    <section class="panel-card">
+      <div class="search-box">
+        <input
+          id="historySearchInput"
+          type="text"
+          placeholder="Buscar por cliente, medicamento, documento o correo..."
+        >
+      </div>
+    </section>
+
+    <section class="inventory-card">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Cliente</th>
+              <th>Documento</th>
+              <th>Correo</th>
+              <th>Medicamento</th>
+              <th>Cantidad</th>
+              <th>Precio unitario</th>
+              <th>Total</th>
+              <th>Notas</th>
+            </tr>
+          </thead>
+          <tbody id="historyBody"></tbody>
+        </table>
+      </div>
+      <div id="historyEmptyState" class="empty-state hidden">
+        No hay compras registradas para mostrar.
+      </div>
+    </section>
+  </main>
+
+  <script src="./src/app.js" defer></script>
+</body>
+</html>

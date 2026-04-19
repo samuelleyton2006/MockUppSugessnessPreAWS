@@ -4,6 +4,7 @@ const AUTH_USER = {
 };
 
 const STORAGE_KEY = "suggestness_medicines";
+const SALES_STORAGE_KEY = "suggestness_sales";
 
 let editId = null;
 
@@ -53,6 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initForgotPage();
   initDashboardPage();
   initPurchasePage();
+  initHistoryPage();
 });
 
 function loadMedicines() {
@@ -62,6 +64,15 @@ function loadMedicines() {
 
 function saveMedicines() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(medicines));
+}
+
+function loadSales() {
+  const saved = localStorage.getItem(SALES_STORAGE_KEY);
+  return saved ? JSON.parse(saved) : [];
+}
+
+function saveSales(sales) {
+  localStorage.setItem(SALES_STORAGE_KEY, JSON.stringify(sales));
 }
 
 function initLoginPage() {
@@ -234,6 +245,24 @@ function initPurchasePage() {
     saveMedicines();
 
     const total = quantity * selectedMedicine.price;
+    const sales = loadSales();
+
+    sales.unshift({
+      id: Date.now(),
+      date: new Date().toISOString(),
+      customerEmail,
+      customerName: invoiceName,
+      document: invoiceDocument,
+      medicineId: selectedMedicine.id,
+      medicineName: selectedMedicine.name,
+      quantity,
+      unitPrice: selectedMedicine.price,
+      total,
+      notes: invoiceNotes
+    });
+
+    saveSales(sales);
+
     const formulaText = requiresPrescription.checked
       ? ` Fórmula médica adjunta: ${prescriptionFile.files[0].name}.`
       : " No requiere fórmula médica.";
@@ -287,6 +316,59 @@ function initPurchasePage() {
     finalPurchaseTotal.textContent = formatCurrency(total);
   }
 }
+
+function initHistoryPage() {
+  const historyBody = document.getElementById("historyBody");
+  const historySearchInput = document.getElementById("historySearchInput");
+
+  if (!historyBody || !historySearchInput) return;
+
+  historySearchInput.addEventListener("input", renderHistoryTable);
+  renderHistoryTable();
+}
+
+function renderHistoryTable() {
+  const historyBody = document.getElementById("historyBody");
+  const historySearchInput = document.getElementById("historySearchInput");
+  const historyEmptyState = document.getElementById("historyEmptyState");
+
+  if (!historyBody || !historySearchInput || !historyEmptyState) return;
+
+  const sales = loadSales();
+  const query = historySearchInput.value.trim().toLowerCase();
+
+  const filtered = sales.filter((sale) => {
+    return (
+      (sale.customerName || "").toLowerCase().includes(query) ||
+      (sale.medicineName || "").toLowerCase().includes(query) ||
+      (sale.document || "").toLowerCase().includes(query) ||
+      (sale.customerEmail || "").toLowerCase().includes(query)
+    );
+  });
+
+  historyBody.innerHTML = "";
+
+  filtered.forEach((sale) => {
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+      <td>${formatDateTime(sale.date)}</td>
+      <td>${sale.customerName || "-"}</td>
+      <td>${sale.document || "-"}</td>
+      <td>${sale.customerEmail || "-"}</td>
+      <td>${sale.medicineName || "-"}</td>
+      <td>${sale.quantity || 0}</td>
+      <td>${formatCurrency(sale.unitPrice || 0)}</td>
+      <td>${formatCurrency(sale.total || 0)}</td>
+      <td>${sale.notes || "-"}</td>
+    `;
+
+    historyBody.appendChild(row);
+  });
+
+  historyEmptyState.classList.toggle("hidden", filtered.length !== 0);
+}
+
 function resetForm() {
   const medicineForm = document.getElementById("medicineForm");
   if (!medicineForm) return;
@@ -312,6 +394,14 @@ function formatCurrency(value) {
 function formatDate(value) {
   const date = new Date(value + "T00:00:00");
   return new Intl.DateTimeFormat("es-CO").format(date);
+}
+
+function formatDateTime(value) {
+  const date = new Date(value);
+  return new Intl.DateTimeFormat("es-CO", {
+    dateStyle: "short",
+    timeStyle: "short"
+  }).format(date);
 }
 
 function renderTable() {
