@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suggestness | Datos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./src/styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="app-header">
+      <div>
+        <h1>Datos de ventas</h1>
+        <p class="muted">Visualiza ventas por semana, mes y año</p>
+      </div>
+      <div class="header-actions">
+        <a href="./dashboard.html" class="btn-soft btn-link">Dashboard</a>
+        <a href="./purchase.html" class="btn-soft btn-link">Compra</a>
+        <a href="./history.html" class="btn-soft btn-link">Histórico</a>
+      </div>
+    </header>
+
+    <section class="panel-card">
+      <h2>Filtro de período</h2>
+      <div class="filter-row" id="rangeButtons">
+        <button type="button" class="btn-soft active-filter" data-range="week">Semana</button>
+        <button type="button" class="btn-soft" data-range="month">Mes</button>
+        <button type="button" class="btn-soft" data-range="year">Año</button>
+      </div>
+    </section>
+
+    <section class="stats-grid">
+      <article class="stat-card">
+        <span class="muted">Ventas del período</span>
+        <strong id="totalSalesAmount">$0</strong>
+      </article>
+
+      <article class="stat-card">
+        <span class="muted">Unidades vendidas</span>
+        <strong id="totalSalesCount">0</strong>
+      </article>
+
+      <article class="stat-card">
+        <span class="muted">Medicamento top</span>
+        <strong id="bestMedicine">Sin ventas</strong>
+      </article>
+    </section>
+
+    <section class="panel-card">
+      <div class="chart-box">
+        <canvas id="salesChart"></canvas>
+      </div>
+    </section>
+
+    <section class="panel-card">
+      <h2>Top medicamentos más vendidos</h2>
+      <ul id="topMedicinesList" class="top-list">
+        <li>No hay ventas registradas todavía.</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="./src/datos.js" defer></script>
+</body>
+</html>
